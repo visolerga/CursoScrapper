@@ -5,11 +5,11 @@ from datetime import datetime
 
 # Configuración de la conexión a la base de datos MySQL
 db_config = {
-    'user': 'your_mysql_user',
-    'password': 'your_mysql_password',
-    'host': 'your_mysql_host',  # e.g., 'localhost' or '127.0.0.1'
-    'database': 'your_database_name',
-    'port': 'your_mysql_port'   # e.g., 3306
+    'user': 'scrapper',
+    'password': 'scrapper',
+    'host': '127.0.0.1',  # e.g., 'localhost' or '127.0.0.1'
+    'database': 'scrapperdb',
+    'port': '3306'   # e.g., 3306
 }
 
 # Configurar la base de datos MySQL
@@ -71,5 +71,5 @@ def run_scraper(url):
 
 # Configurar la base de datos y ejecutar el scraper
 setup_database()
-url = 'http://example.com'  # Reemplaza con la URL de la página web objetivo
+url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-photoshop-chatgpt-excel-java-php-python-after-effect-aws-wordpress-y-otros-udemy-1297415'  # Reemplaza con la URL de la página web objetivo
 run_scraper(url)
