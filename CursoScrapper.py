@@ -37,7 +37,8 @@ def fetch_webpage(url):
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        return [item.text.strip() for item in soup.find_all('p')]  # Ejemplo: scraping de todos los <p> tags
+        links = soup.find_all('a', class_='link')
+        return [{'text': link.text.strip(), 'url': link['href']} for link in links]
     else:
         return []
 
@@ -52,8 +53,8 @@ def update_database(new_contents):
 
     # Insertar nuevos contenidos y rastrear cambios
     for content in new_contents:
-        if content not in current_contents:
-            cursor.execute('INSERT INTO web_content (content) VALUES (%s)', (content,))
+        if (content['text'], content['url']) not in current_contents:
+            cursor.execute('INSERT INTO web_content (link_text, link_url) VALUES (%s, %s)', (content['text'], content['url']))
             content_id = cursor.lastrowid
             cursor.execute('INSERT INTO content_changes (content_id, change_type) VALUES (%s, %s)', (content_id, 'added'))
 
