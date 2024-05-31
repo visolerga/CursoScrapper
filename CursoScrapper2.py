@@ -4,13 +4,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager  # Corregido
 import mysql.connector
 from datetime import datetime
 import os
-#from chromedrivermanager import ChromeDriverManager
-#from chromedriver_py import ChromeDriverManager
-from webdriver_manager.chrome import ChromeDriverManager
-
 
 # Configuración de la conexión a la base de datos MySQL
 db_config = {
@@ -49,12 +46,8 @@ def fetch_webpage(url):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # Ruta del ChromeDriver
-    #chrome_driver_path = '/path/to/chromedriver'  # Asegúrate de que esta ruta sea correcta y el ChromeDriver esté allí
-    # Obtener la ruta del ChromeDriver utilizando chromedriver-py
-    #from chromedriver_py import ChromeDriverManager
+    # Obtener la ruta del ChromeDriver utilizando webdriver-manager
     chrome_driver_path = ChromeDriverManager().install()
-
 
     driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chrome_options)
     driver.get(url)
