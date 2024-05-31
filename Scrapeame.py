@@ -23,14 +23,20 @@ def save_to_file(content, filename):
 
 def extract_li_titles(content, filename):
     try:
-        # Expresión regular para encontrar todo el texto entre <li> y </li> que contiene el atributo title
-        li_regex = re.compile(r'<li[^>]*?title="([^"]*?)"[^>]*?>(.*?)</li>', re.DOTALL)
-        # Encontramos todos los elementos <li> usando la expresión regular
+        # Expresión regular para encontrar todos los elementos <li> y </li>
+        li_regex = re.compile(r'<li[^>]*?>(.*?)<\/li>', re.DOTALL)
+        # Encontramos todos los elementos <li> y </li> usando la expresión regular
         li_elements = li_regex.findall(content)
+        # Expresión regular para verificar si los elementos <li> contienen el atributo title
+        title_regex = re.compile(r'title=\"([^"]*?)\"')
         # Guardamos los títulos en un archivo separados por nuevas líneas
         with open(filename, 'w', encoding='utf-8') as file:
-            for li_title, _ in li_elements:
-                file.write(li_title.strip() + '\n')
+            for li_element in li_elements:
+                # Buscamos si el elemento <li> contiene el atributo title
+                title_match = title_regex.search(li_element)
+                if title_match:
+                    title = title_match.group(1).strip()
+                    file.write(title + '\n')
         print(f"Los títulos se han guardado en {filename}")
     except Exception as e:
         print(f"Error al extraer los títulos: {e}")
