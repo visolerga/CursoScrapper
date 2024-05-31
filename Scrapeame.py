@@ -32,7 +32,9 @@ def extract_li_titles(content, filename):
         print(f"Los elementos <li> se han guardado en {filename}")
 
         # Expresión regular para verificar si los elementos <li> contienen el atributo title
-        title_regex = re.compile(r'title=\"([^"]*?)\"')
+        #title_regex = re.compile(r'title=\"([^"]*?)\"')
+        #title_regex = re.compile(r'title=\"(.*?)\"')
+        title_regex = re.compile(r'title=\\"([^"]*?)\\"')
         # Guardamos los títulos en un archivo separados por nuevas líneas
         with open('Titulos.txt', 'w', encoding='utf-8') as file:
             for li_element in li_elements:
