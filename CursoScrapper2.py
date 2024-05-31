@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager  # Corregido
+from webdriver_manager.chrome import ChromeDriverManager
 import mysql.connector
 from datetime import datetime
 import os
@@ -13,9 +13,9 @@ import os
 db_config = {
     'user': 'scrapper',
     'password': 'scrapper',
-    'host': '127.0.0.1',  # e.g., 'localhost' o '127.0.0.1'
+    'host': '127.0.0.1',
     'database': 'scrapperdb',
-    'port': '3306'   # e.g., 3306
+    'port': '3306'
 }
 
 # Configurar la base de datos MySQL
@@ -45,6 +45,14 @@ def fetch_webpage(url):
     chrome_options.add_argument("--headless")  # Ejecutar en modo headless (sin abrir una ventana del navegador)
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--allow-running-insecure-content")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--disable-browser-side-navigation")
+    chrome_options.add_argument("--disable-infobars")
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
 
     # Obtener la ruta del ChromeDriver utilizando webdriver-manager
     chrome_driver_path = ChromeDriverManager().install()
