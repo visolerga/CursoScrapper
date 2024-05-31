@@ -7,6 +7,10 @@ from selenium.webdriver.chrome.options import Options
 import mysql.connector
 from datetime import datetime
 import os
+#from chromedrivermanager import ChromeDriverManager
+#from chromedriver_py import ChromeDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 # Configuración de la conexión a la base de datos MySQL
 db_config = {
@@ -46,7 +50,11 @@ def fetch_webpage(url):
     chrome_options.add_argument("--disable-dev-shm-usage")
 
     # Ruta del ChromeDriver
-    chrome_driver_path = '/path/to/chromedriver'  # Asegúrate de que esta ruta sea correcta y el ChromeDriver esté allí
+    #chrome_driver_path = '/path/to/chromedriver'  # Asegúrate de que esta ruta sea correcta y el ChromeDriver esté allí
+    # Obtener la ruta del ChromeDriver utilizando chromedriver-py
+    #from chromedriver_py import ChromeDriverManager
+    chrome_driver_path = ChromeDriverManager().install()
+
 
     driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chrome_options)
     driver.get(url)
