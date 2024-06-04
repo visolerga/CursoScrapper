@@ -1,5 +1,6 @@
 import requests  # Importar el módulo 'requests' para realizar solicitudes HTTP
 import re  # Importar el módulo 're' para utilizar expresiones regulares
+import html
 
 # Función para obtener el contenido de una página web dada una URL
 def fetch_webpage(url):
@@ -14,14 +15,17 @@ def fetch_webpage(url):
         print(f"Error al acceder a la página web: {e}")  # Imprimir un mensaje de error si ocurre una excepción
         return None  # Devolver 'None' si ocurre un error
 
-# Función para guardar contenido en un archivo
 def save_to_file(content, filename):
     try:
-        with open(filename, 'w', encoding='utf-8') as file:  # Abrir el archivo en modo escritura
-            file.write(content)  # Escribir el contenido en el archivo
-        print(f"El contenido se ha guardado en {filename}")  # Imprimir un mensaje de éxito
+        # Desescapar caracteres Unicode
+        content = html.unescape(content)
+        content = content.encode('ascii', 'ignore').decode('utf-8')  # Eliminar caracteres Unicode
+
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(content)
+        print(f"El contenido se ha guardado en {filename}")
     except IOError as e:
-        print(f"Error al escribir en el archivo: {e}")  # Imprimir un mensaje de error si ocurre una excepción
+        print(f"Error al escribir en el archivo: {e}")
 
 # Función para extraer títulos de elementos <li> de una página web y guardarlos en un archivo
 def extract_li_titles(content, filename):
@@ -39,6 +43,9 @@ def extract_li_titles(content, filename):
         # Guardar los títulos en un archivo separados por nuevas líneas
         with open('Titulos.txt', 'w', encoding='utf-8') as file:
             for li_element in li_elements:
+                # Desescapar caracteres especiales HTML
+                li_element = html.unescape(li_element)
+
                 # Buscar si el elemento <li> contiene el atributo title
                 title_match = title_regex.search(li_element)
                 if title_match:
@@ -55,5 +62,7 @@ def main(url):
         extract_li_titles(webpage_content, 'Tabla.txt')  # Extraer títulos de elementos <li> y guardarlos en un archivo
 
 if __name__ == "__main__":
-    url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-photoshop-chatgpt-excel-java-php-python-after-effect-aws-wordpress-y-otros-udemy-1297415'
+    #url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-photoshop-chatgpt-excel-java-php-python-after-effect-aws-wordpress-y-otros-udemy-1297415'
+    #url = 'https://www.chollometro.com/ofertas/cursos-online-gratuitos-por-tiempo-limitado-udemy-1296729'
+    url = 'https://www.chollometro.com/ofertas/cursos-en-espanol-gratuitos-por-tiempo-limitado-udemy-1299966'
     main(url)  # Llamar a la función principal con la URL proporcionada como argumento
