@@ -66,5 +66,6 @@ if __name__ == "__main__":
     #url = 'https://www.chollometro.com/ofertas/cursos-online-gratuitos-por-tiempo-limitado-udemy-1296729'
     # url = 'https://www.chollometro.com/ofertas/cursos-en-espanol-gratuitos-por-tiempo-limitado-udemy-1299966'
     # url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-python-adobe-seo-chatgpt-c-c-php-java-kali-excel-r-selenium-ubuntu-y-otros-udemy-1300416'
-    url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-adobe-chatgpt-python-css-bootstrap-javascript-dart-flutter-django-seo-y-otros-udemy-1300980'
+    # url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-adobe-chatgpt-python-css-bootstrap-javascript-dart-flutter-django-seo-y-otros-udemy-1300980'
+    url = 'https://www.chollometro.com/ofertas/cursos-gratis-de-c-c-chatgpt-react-javascript-python-autocad-blende-git-github-php-wordpress-y-otros-udemy-1303049'
     main(url)  # Llamar a la función principal con la URL proporcionada como argumento
